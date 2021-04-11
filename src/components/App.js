@@ -1,17 +1,65 @@
+import React from 'react';
+import { useState } from 'react';
+
 import Header from './Header';
-import Main from './Main'
-import Footer from './Footer'
+import Main from './Main';
+import Footer from './Footer';
+
+import PopupWithForm from './PopupWithForm'
 
 function App() {
-  return (
-<>
-    <div className="page">
-    
-  <Header />
-  <Main />
-  <Footer />
 
-  
+  function handleEditAvatarClick () {
+    setIsEditAvatarPopupOpen(true)
+  }
+  function handleEditProfileClick () {
+    setIsEditProfilePopupOpen(true)
+  }
+  function handleAddPlaceClick () {
+    setIsAddPlacePopupOpen(true)
+  }
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  return (
+
+    <div className="page">    
+      <Header />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
+      <Footer />
+
+      <PopupWithForm name='add-post' title='Новое место' isOpen={isAddPlacePopupOpen}/>
+      <PopupWithForm name='edit-avatar' title='Обновить аватар' isOpen={isEditAvatarPopupOpen}/>
+      <PopupWithForm name='edit-profile' title='Редактировать профиль' isOpen={isEditProfilePopupOpen}/>
+    </div>
+  );
+}
+
+export default App;
+
+
+/*
+name='add-post' title='Новое место' isOpen={isAddPlacePopupOpen}
+
+  <section className="popup popup_type_add-post">
+    <div className="popup__container">
+      <h2 className="popup__title">Новое место</h2>
+      <form name="addpost" noValidate>
+        <input className="popup__input popup__input_textarea_signature" id="input-signature" name="signature" type="text" placeholder="Название" required minLength="2" maxLength="30" />
+        <span className="popup__input-error input-signature-error"></span>
+        <input className="popup__input popup__input_textarea_picture" id="input-picture" name="picture" type="url" placeholder="Ссылка на картинку" required />
+        <span className="popup__input-error input-picture-error"></span>
+        <button className="popup__save-button" type="submit" disabled>Создать</button>
+      </form>
+      <button className="popup__close-button popup__close-button_type_add-post" type="button"></button>
+    </div>
+  </section>
+
+
+
+    
 
   <section className="popup popup_type_edit-profile">
     <div className="popup__container">
@@ -27,19 +75,7 @@ function App() {
     </div>
   </section>
 
-  <section className="popup popup_type_add-post">
-    <div className="popup__container">
-      <h2 className="popup__title">Новое место</h2>
-      <form name="addpost" noValidate>
-        <input className="popup__input popup__input_textarea_signature" id="input-signature" name="signature" type="text" placeholder="Название" required minLength="2" maxLength="30" />
-        <span className="popup__input-error input-signature-error"></span>
-        <input className="popup__input popup__input_textarea_picture" id="input-picture" name="picture" type="url" placeholder="Ссылка на картинку" required />
-        <span className="popup__input-error input-picture-error"></span>
-        <button className="popup__save-button" type="submit" disabled>Создать</button>
-      </form>
-      <button className="popup__close-button popup__close-button_type_add-post" type="button"></button>
-    </div>
-  </section>
+
 
   <section className="popup popup_type_image">
     <div className="popup__image-container">
@@ -71,9 +107,9 @@ function App() {
     </div>
   </section>
 
-</div>
 
-<template className="card-template">
+
+  <template className="card-template">
 <article className="card">
   <img className="card__picture" src=" " alt=" " />
   <div className="card__info">
@@ -87,9 +123,5 @@ function App() {
   </button>
 </article>
 </template>  
-</>
 
-  );
-}
-
-export default App;
+*/

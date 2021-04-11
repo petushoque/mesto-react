@@ -1,15 +1,47 @@
-function Main () {
+import { useState, useEffect } from 'react'
+import api from '../utils/Api'
+
+function Main (props) {
+
+    const [userName, setUserName] = useState('');
+    const [userDescription, setUserDescription] = useState('');
+    const [userAvatar, setUserAvatar] = useState('');
+
+    const [cards, setCards] = useState([])
+
+    useEffect(() => {
+        api.getUserInfo()
+        .then((result) => {
+            setUserName(result.name);
+            setUserDescription(result.about);
+            setUserAvatar(result.avatar);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    })
+
+    useEffect(() => {
+        api.getCards()
+        .then((result) => {
+        console.log(result)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    })
+
     return (
         <main className="main">
     
             <section className="profile">
-                <div className="profile__avatar" onClick={handleEditAvatarClick}></div>  
+                <div className="profile__avatar" onClick={props.onEditAvatar} style={{ backgroundImage: `url(${userAvatar})` }} ></div>  
                 <div className="profile__user">      
-                    <h1 className="profile__name"></h1>
-                    <button className="profile__edit-button" onClick={handleEditProfileClick} type="button"></button>
+                    <h1 className="profile__name">{userName}</h1>
+                    <button className="profile__edit-button" onClick={props.onEditProfile} type="button"></button>
                 </div>
-                <p className="profile__status"></p>
-                <button className="profile__add-button" onClick={handleAddPlaceClick} type="button"></button>
+                <p className="profile__status">{userDescription}</p>
+                <button className="profile__add-button" onClick={props.onAddPlace} type="button"></button>
             </section>
 
             <section className="elements">
@@ -19,17 +51,5 @@ function Main () {
     )
 }
 
-function handleEditAvatarClick () {
-    const editAvatarForm = document.querySelector('.popup_type_edit-avatar');
-    editAvatarForm.classList.add('popup_active')
-}
-function handleEditProfileClick () {
-    const editProfileForm = document.querySelector('.popup_type_edit-profile');
-    editProfileForm.classList.add('popup_active')
-}
-function handleAddPlaceClick () {
-    const addPostForm = document.querySelector('.popup_type_add-post');
-    addPostForm.classList.add('popup_active')
-}
 
 export default Main
