@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import api from '../utils/Api'
+import Card from './Card'
 
 function Main (props) {
 
@@ -24,12 +25,22 @@ function Main (props) {
     useEffect(() => {
         api.getCards()
         .then((result) => {
-        console.log(result)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    })
+            console.log(result)
+            const data = result.map((item) => 
+                ({
+                    id: item._id,
+                    name: item.name,
+                    link: item.link,
+                    owner: item.owner._id,
+                    likes: item.likes,
+                })
+            )
+            setCards(data)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, [])
 
     return (
         <main className="main">
@@ -45,6 +56,7 @@ function Main (props) {
             </section>
 
             <section className="elements">
+                {cards.map(card => <Card key={card.id} {...card}/>)}
             </section>
 
         </main>
