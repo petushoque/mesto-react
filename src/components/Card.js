@@ -6,7 +6,7 @@ function Card (props) {
             <h2 className="card__signature">{props.name}</h2>
             <div className="card__like-section">
               <button className="card__like" type="button"></button>
-              <p className="card__like-counter">0</p>
+              <p className="card__like-counter">{props.likes.length}</p>
             </div>
           </div>
           <button className="card__delete" type="button">
