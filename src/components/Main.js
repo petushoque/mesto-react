@@ -25,7 +25,6 @@ function Main (props) {
     useEffect(() => {
         api.getCards()
         .then((result) => {
-            console.log(result)
             const data = result.map((item) => 
                 ({
                     id: item._id,
@@ -62,6 +61,5 @@ function Main (props) {
         </main>
     )
 }
-
 
 export default Main
