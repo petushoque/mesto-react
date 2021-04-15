@@ -4,9 +4,9 @@ function ImagePopup (props) {
     return(
         <section className={card ? `popup popup_type_image popup_active` : `popup popup_type_image`}>
                 <div className="popup__image-container">
-                <img className="popup__big-image" src={card ? card.target.currentSrc : ""} alt={card ? card.target.alt : ""} />
+                <img className="popup__big-image" src={card ? card.link : ""} alt={card ? card.name : ""} />
                 <button className="popup__close-button popup__close-button_type_image" onClick={closePopup} type="button"></button>
-                <p className="popup__big-image-signature">{card ? card.target.alt : ""}</p>
+                <p className="popup__big-image-signature">{card ? card.name : ""}</p>
             </div>
         </section>
     )

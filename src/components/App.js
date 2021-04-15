@@ -9,6 +9,12 @@ import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 
 function App() {
+  
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isDeletePostPopupOpen, setIsDeletePostPopup] = useState(false)
+  const [selectedCard, setSelectedCard] = useState(null)
 
   function handleEditAvatarClick () {
     setIsEditAvatarPopupOpen(true)
@@ -24,6 +30,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false)
+    setIsDeletePostPopup(false)
 
     setSelectedCard(null)
   }
@@ -32,14 +39,7 @@ function App() {
     setSelectedCard(card)
   }
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-
-  const [selectedCard, setSelectedCard] = useState(null)
-
   return (
-
     <div className="page">    
       <Header />
       <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
@@ -63,6 +63,9 @@ function App() {
         <input className="popup__input popup__input_textarea_status" id="input-status" name="status" type="text" placeholder="Введите статус" required minLength="2" maxLength="200" />
         <span className="popup__input-error input-status-error"></span>
       </PopupWithForm> 
+
+      <PopupWithForm name='delete-post' title='Вы уверены?' isOpen={isDeletePostPopupOpen} onClose={closeAllPopups}>
+      </PopupWithForm> 
              
       <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
     </div>
@@ -70,3 +73,14 @@ function App() {
 }
 
 export default App;
+/*
+<section class="popup popup_type_delete-post">
+<div class="popup__container">
+  <h2 class="popup__title popup__title_small">Вы уверены?</h2>
+  <form name="deletepost">
+    <button class="popup__save-button popup__save-button_active" type="submit">Да</button>
+  </form>
+  <button class="popup__close-button popup__close-button_type_delete-post" type="button"></button>
+</div>
+</section>
+*/
