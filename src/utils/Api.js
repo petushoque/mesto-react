@@ -3,13 +3,19 @@ class Api {
         this._token = token;
         this._groupId = groupId
     }
+    _checkResponse(res) {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } 
     getCards(){
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/cards`, {
             headers: {
             authorization: this._token
             }
         })        
-        .then(res => res.json())
+        .then(this._checkResponse)
     }
     getUserInfo(){
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/users/me`, {
@@ -17,7 +23,7 @@ class Api {
             authorization: this._token
             }
         })
-        .then(res => res.json())
+        .then(this._checkResponse)
     }
     patchProfileAvatar(picture){
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/users/me/avatar`, {
@@ -30,7 +36,7 @@ class Api {
             avatar: picture
         })
         })
-        .then(res => res.json())
+        .then(this._checkResponse)
     }
     patchProfileInfo(username, status){
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/users/me`, {
@@ -44,7 +50,7 @@ class Api {
             about: status
         })
         })
-        .then(res => res.json()) 
+        .then(this._checkResponse)
     }
     postNewCard(text, url) {
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/cards `, {
@@ -58,7 +64,7 @@ class Api {
             link: url
         })
         })
-        .then(res => res.json())
+        .then(this._checkResponse)
     }
     deleteCard(id) {        
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/cards/${id}/`, {
@@ -67,7 +73,7 @@ class Api {
         authorization: this._token
         }
         })
-        .then(res => res.json()) 
+        .then(this._checkResponse)
     }
     putLikePost(id) {
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/cards/likes/${id}`, {
@@ -76,7 +82,7 @@ class Api {
         authorization: this._token
         }
         })
-        .then(res => res.json());
+        .then(this._checkResponse)
     }
     deleteLikePost(id) {
         return fetch(`https://mesto.nomoreparties.co/v1/${this._groupId}/cards/likes/${id}`, {
@@ -85,7 +91,7 @@ class Api {
         authorization: this._token
         }
         })
-        .then(res => res.json());
+        .then(this._checkResponse)
     }
 }
 
