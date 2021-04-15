@@ -1,4 +1,4 @@
-class Api {
+export class Api {
     constructor(token, groupId){
         this._token = token;
         this._groupId = groupId
@@ -95,6 +95,4 @@ class Api {
     }
 }
 
-const api = new Api ('57e386f4-1a89-4d89-a10b-b49e88b17870', 'cohort-21');
-
-export default api;
+export const api = new Api ('57e386f4-1a89-4d89-a10b-b49e88b17870', 'cohort-21'); //по другому тренажер не принимает

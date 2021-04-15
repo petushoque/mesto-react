@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import api from '../utils/api'
+import { api, Api } from '../utils/api' //Иначе "Не экспортирован класс Api. и проект не принимается тренажером"
 import Card from './Card'
 
 function Main (props) {
