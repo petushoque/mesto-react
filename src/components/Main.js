@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { React, useState, useEffect } from 'react'
 import api from '../utils/api'
 import Card from './Card'
 
@@ -7,7 +7,6 @@ function Main (props) {
     const [userName, setUserName] = useState('');
     const [userDescription, setUserDescription] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
-
     const [cards, setCards] = useState([])
 
     useEffect(() => {
@@ -20,9 +19,7 @@ function Main (props) {
         .catch((err) => {
             console.log(err);
         });
-    })
-
-    useEffect(() => {
+    
         api.getCards()
         .then((result) => {
             const data = result.map((item) => 
@@ -38,8 +35,9 @@ function Main (props) {
         })
         .catch((err) => {
             console.log(err);
-        });
+        });    
     }, [])
+
 
     return (
         <main className="main">
@@ -55,7 +53,7 @@ function Main (props) {
             </section>
 
             <section className="elements">
-                {cards.map(card => <Card key={card.id} {...card} onCardClick={props.onCardClick}/>)}
+                {cards.map(card => (<Card key={card.id} {...card} onCardClick={props.onCardClick}/>))}
             </section>
 
         </main>

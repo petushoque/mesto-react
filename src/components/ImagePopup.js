@@ -1,3 +1,5 @@
+import React from 'react';
+
 function ImagePopup (props) {
     const closePopup = props.onClose;
     const card = props.card;

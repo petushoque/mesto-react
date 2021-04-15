@@ -1,3 +1,5 @@
+import React from 'react';
+
 function PopupWithForm (props) {
     const popupName = props.name;
     const title = props.title;
