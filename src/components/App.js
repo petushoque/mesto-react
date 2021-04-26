@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import Header from './Header';
@@ -8,7 +8,23 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 
+import api from '../utils/api'
+
 function App() {
+
+  const [currentUser, setCurrentUser] = useState('')
+
+  useEffect(() => {
+    api.getUserInfo()
+    .then((result) => {
+      console.log(currentUser)
+      console.log(result)
+        setCurrentUser(result._id)
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+  }, [])
   
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
