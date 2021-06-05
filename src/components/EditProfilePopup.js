@@ -1,9 +1,16 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm'
+import CurrentUserContext from './CurrentUserContext'
 
 export default function EditProfilePopup (props) {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const currentUser = useContext(CurrentUserContext);
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }, [currentUser]); 
     
     return (
         <PopupWithForm name='edit-profile' title='Редактировать профиль' isOpen={props.isOpen} onClose={props.onClose}>
