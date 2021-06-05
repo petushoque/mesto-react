@@ -29,6 +29,13 @@ function Main (props) {
         });    
     }, [])
 
+    function handleCardLike(card) {
+        const isLiked = card.likes.some(i => i._id === user._id);
+        
+        //api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        //    setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        //});
+    } 
 
     return (
         <main className="main">
@@ -43,7 +50,7 @@ function Main (props) {
             </section>
 
             <section className="elements">
-                {cards.map(card => (<Card key={card.id} {...card} onCardClick={props.onCardClick}/>))}
+                {cards.map(card => (<Card key={card.id} {...card} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>))}
             </section>
 
         </main>
