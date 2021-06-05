@@ -17,6 +17,11 @@ function Card (props) {
   function handleLikeClick() {
     props.onCardLike(props)
   }
+
+  function handleDeleteClick() {
+    props.onCardDelete(props)
+  }
+
     return(
       
         <article className="card">
@@ -28,7 +33,7 @@ function Card (props) {
               <p className="card__like-counter">{props.likes.length}</p>
             </div>
           </div>
-          <button className={cardDeleteButtonClassName} type="button">
+          <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick}>
           </button>
         </article>
     )
