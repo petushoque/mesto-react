@@ -6,11 +6,7 @@ function Card (props) {
   const user = useContext(CurrentUserContext)
 
   const isOwn = (props.owner === user._id);
-
-  //будущая переменная для отображения или скрытия корзины
-  //const cardDeleteButtonClassName = (
-  //  `card__delete ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`
-  //);
+  const cardDeleteButtonClassName = (`card__delete ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`);
 
   const isLiked = props.likes.some(i => i._id === user._id);
 
