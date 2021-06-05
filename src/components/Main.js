@@ -29,6 +29,7 @@ function Main (props) {
         });    
     }, [])
 
+    //сгруппировать
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === user._id);
         if (isLiked) {
