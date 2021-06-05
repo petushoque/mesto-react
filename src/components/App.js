@@ -7,6 +7,7 @@ import Footer from './Footer';
 
 import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
+import EditProfilePopup from './EditProfilePopup'
 
 import api from '../utils/api'
 import CurrentUserContext from './CurrentUserContext'
@@ -73,12 +74,7 @@ function App() {
           <span className="popup__input-error input-avatar-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm name='edit-profile' title='Редактировать профиль' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-          <input className="popup__input popup__input_textarea_name" id="input-name" name="username" type="text" placeholder="Введите имя" required minLength="2" maxLength="40" />
-          <span className="popup__input-error input-name-error"></span>
-          <input className="popup__input popup__input_textarea_status" id="input-status" name="status" type="text" placeholder="Введите статус" required minLength="2" maxLength="200" />
-          <span className="popup__input-error input-status-error"></span>
-        </PopupWithForm> 
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
 
         <PopupWithForm name='delete-post' title='Вы уверены?' isOpen={isDeletePostPopupOpen} onClose={closeAllPopups}>
         </PopupWithForm> 
