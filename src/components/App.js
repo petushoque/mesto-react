@@ -32,6 +32,26 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePostPopupOpen, setIsDeletePostPopup] = useState(false)
   const [selectedCard, setSelectedCard] = useState(null)
+  const [cards, setCards] = useState([])
+
+  useEffect(() => {        
+    api.getCards()
+    .then((result) => {
+        const data = result.map((item) => 
+            ({
+                id: item._id,
+                name: item.name,
+                link: item.link,
+                owner: item.owner._id,
+                likes: item.likes,
+            })
+        )
+        setCards(data)
+    })
+    .catch((err) => {
+        console.log(err);
+    });    
+  }, [])
 
   function handleEditAvatarClick () {
     setIsEditAvatarPopupOpen(true)
@@ -48,7 +68,6 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false)
     setIsDeletePostPopup(false)
-
     setSelectedCard(null)
   }
 
@@ -68,11 +87,55 @@ function App() {
     closeAllPopups()
   }
 
+  function handleCardDelete(card) {
+    api.deleteCard(card.id)
+    .then(
+        setCards((cards) => cards.filter((c) => {return c.id !== card.id}))
+    )
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    if (isLiked) {
+        api.deleteLikePost(card.id)
+        .then((newCard) => {
+                const data = {
+                        id: newCard._id,
+                        name: newCard.name,
+                        link: newCard.link,
+                        owner: newCard.owner._id,
+                        likes: newCard.likes,
+                    }
+                setCards((cards) => cards.map((c) => c.id === card.id ? data : c))
+        })
+    }
+    else {
+        api.putLikePost(card.id)
+        .then((newCard) => {
+            const data = {
+                id: newCard._id,
+                name: newCard.name,
+                link: newCard.link,
+                owner: newCard.owner._id,
+                likes: newCard.likes,
+            }
+            setCards((cards) => cards.map((c) => c.id === card.id ? data : c))
+        })    
+    }
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>    
         <Header />
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
+        <Main 
+          cards={cards}
+          onEditProfile={handleEditProfileClick} 
+          onAddPlace={handleAddPlaceClick} 
+          onEditAvatar={handleEditAvatarClick} 
+          onCardClick={handleCardClick}
+          handleCardDelete={handleCardDelete}
+          hanldeCardLike={handleCardLike}/>
         <Footer />
 
         <PopupWithForm name='add-post' title='Новое место' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>

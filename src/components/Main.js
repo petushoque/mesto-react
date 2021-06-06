@@ -7,8 +7,8 @@ function Main (props) {
 
     const user = useContext(CurrentUserContext)
 
-    const [cards, setCards] = useState([])
-
+    //const [cards, setCards] = useState([])
+    /*
     useEffect(() => {
         
         api.getCards()
@@ -65,7 +65,7 @@ function Main (props) {
             })    
         }
     }
-
+*/
     return (
         <main className="main">
             <section className="profile">
@@ -79,12 +79,12 @@ function Main (props) {
             </section>
 
             <section className="elements">
-                {cards.map(card => (<Card 
+                {props.cards.map(card => (<Card 
                                         key={card.id} 
                                         {...card} 
                                         onCardClick={props.onCardClick} 
-                                        onCardLike={handleCardLike}
-                                        onCardDelete={handleCardDelete}/>))}
+                                        onCardLike={props.handleCardLike}
+                                        onCardDelete={props.handleCardDelete}/>))}
             </section>
 
         </main>
