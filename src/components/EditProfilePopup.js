@@ -10,10 +10,20 @@ export default function EditProfilePopup (props) {
     useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-    }, [currentUser]); 
+    }, [currentUser]);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        props.onUpdateUser(name, description);
+      } 
     
     return (
-        <PopupWithForm name='edit-profile' title='Редактировать профиль' isOpen={props.isOpen} onClose={props.onClose}>
+        <PopupWithForm 
+            name='edit-profile' 
+            title='Редактировать профиль' 
+            isOpen={props.isOpen} 
+            onClose={props.onClose}
+            onSubmit={handleSubmit}>
             <input 
                 className="popup__input popup__input_textarea_name" 
                 id="input-name" 

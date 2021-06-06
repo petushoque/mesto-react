@@ -55,6 +55,12 @@ function App() {
     setSelectedCard(card)
   }
 
+  function handleUpdateUser (name, about) {
+    api.patchProfileInfo(name, about)
+    .then((res) => setCurrentUser(res))
+    closeAllPopups()
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>    
@@ -74,7 +80,10 @@ function App() {
           <span className="popup__input-error input-avatar-error"></span>
         </PopupWithForm>
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+        <EditProfilePopup 
+          isOpen={isEditProfilePopupOpen} 
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}/>
 
         <PopupWithForm name='delete-post' title='Вы уверены?' isOpen={isDeletePostPopupOpen} onClose={closeAllPopups}>
         </PopupWithForm> 
