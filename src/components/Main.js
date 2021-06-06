@@ -7,65 +7,6 @@ function Main (props) {
 
     const user = useContext(CurrentUserContext)
 
-    //const [cards, setCards] = useState([])
-    /*
-    useEffect(() => {
-        
-        api.getCards()
-        .then((result) => {
-            const data = result.map((item) => 
-                ({
-                    id: item._id,
-                    name: item.name,
-                    link: item.link,
-                    owner: item.owner._id,
-                    likes: item.likes,
-                })
-            )
-            setCards(data)
-        })
-        .catch((err) => {
-            console.log(err);
-        });    
-    }, [])
-
-    function handleCardDelete(card) {
-        api.deleteCard(card.id)
-        .then(
-            setCards((cards) => cards.filter((c) => {return c.id !== card.id}))
-        )
-    }
-
-    function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === user._id);
-        if (isLiked) {
-            api.deleteLikePost(card.id)
-            .then((newCard) => {
-                    const data = {
-                            id: newCard._id,
-                            name: newCard.name,
-                            link: newCard.link,
-                            owner: newCard.owner._id,
-                            likes: newCard.likes,
-                        }
-                    setCards((cards) => cards.map((c) => c.id === card.id ? data : c))
-            })
-        }
-        else {
-            api.putLikePost(card.id)
-            .then((newCard) => {
-                const data = {
-                    id: newCard._id,
-                    name: newCard.name,
-                    link: newCard.link,
-                    owner: newCard.owner._id,
-                    likes: newCard.likes,
-                }
-                setCards((cards) => cards.map((c) => c.id === card.id ? data : c))
-            })    
-        }
-    }
-*/
     return (
         <main className="main">
             <section className="profile">
