@@ -9,6 +9,7 @@ import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 import EditProfilePopup from './EditProfilePopup'
 import EditAvatarPopup from './EditAvatarPopup'
+import AddPlacePopup from './AddPlacePopup'
 
 import api from '../utils/api'
 import CurrentUserContext from './CurrentUserContext'
@@ -87,6 +88,20 @@ function App() {
     closeAllPopups()
   }
 
+  function handleAddPlace (description, link) {
+    api.postNewCard(description, link)
+    .then((newCard) => {
+      const data = {
+        id: newCard._id,
+        name: newCard.name,
+        link: newCard.link,
+        owner: newCard.owner._id,
+        likes: newCard.likes,
+      }
+      setCards([data, ...cards])})
+    closeAllPopups()
+  }
+
   function handleCardDelete(card) {
     api.deleteCard(card.id)
     .then(
@@ -126,7 +141,8 @@ function App() {
 
   return (
     <div className="page">
-      <CurrentUserContext.Provider value={currentUser}>    
+      <CurrentUserContext.Provider value={currentUser}>   
+
         <Header />
         <Main 
           cards={cards}
@@ -138,12 +154,10 @@ function App() {
           hanldeCardLike={handleCardLike}/>
         <Footer />
 
-        <PopupWithForm name='add-post' title='Новое место' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-          <input className="popup__input popup__input_textarea_signature" id="input-signature" name="signature" type="text" placeholder="Название" required minLength="2" maxLength="30" />
-          <span className="popup__input-error input-signature-error"></span>
-          <input className="popup__input popup__input_textarea_picture" id="input-picture" name="picture" type="url" placeholder="Ссылка на картинку" required />
-          <span className="popup__input-error input-picture-error"></span>
-        </PopupWithForm>
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen} 
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlace}/>
 
         <EditProfilePopup 
           isOpen={isEditProfilePopupOpen} 
@@ -158,7 +172,10 @@ function App() {
         <PopupWithForm name='delete-post' title='Вы уверены?' isOpen={isDeletePostPopupOpen} onClose={closeAllPopups}>
         </PopupWithForm> 
              
-        <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+        <ImagePopup 
+          card={selectedCard} 
+          onClose={closeAllPopups}/>
+
       </CurrentUserContext.Provider>
     </div>
   );

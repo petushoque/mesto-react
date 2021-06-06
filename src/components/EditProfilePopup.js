@@ -15,7 +15,7 @@ export default function EditProfilePopup (props) {
     function handleSubmit(e) {
         e.preventDefault();
         props.onUpdateUser(name, description);
-      } 
+    } 
     
     return (
         <PopupWithForm 
