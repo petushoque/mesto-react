@@ -8,6 +8,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 import EditProfilePopup from './EditProfilePopup'
+import EditAvatarPopup from './EditAvatarPopup'
 
 import api from '../utils/api'
 import CurrentUserContext from './CurrentUserContext'
@@ -61,6 +62,12 @@ function App() {
     closeAllPopups()
   }
 
+  function handleUpdateUser (avatarLink) {
+    api.patchProfileAvatar(avatarLink)
+    .then((res) => setCurrentUser(res))
+    closeAllPopups()
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>    
@@ -75,15 +82,15 @@ function App() {
           <span className="popup__input-error input-picture-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm name='edit-avatar' title='Обновить аватар' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-          <input className="popup__input popup__input_textarea_avatar" id="input-avatar" name="avatar" type="url" placeholder="Ссылка на картинку" required />
-          <span className="popup__input-error input-avatar-error"></span>
-        </PopupWithForm>
-
         <EditProfilePopup 
           isOpen={isEditProfilePopupOpen} 
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}/>
+
+        <EditAvatarPopup 
+          isOpen={isEditAvatarPopupOpen} 
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateUser}/>
 
         <PopupWithForm name='delete-post' title='Вы уверены?' isOpen={isDeletePostPopupOpen} onClose={closeAllPopups}>
         </PopupWithForm> 
