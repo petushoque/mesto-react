@@ -1,5 +1,5 @@
 import { React, useContext} from 'react'
-import CurrentUserContext from './CurrentUserContext'
+import CurrentUserContext from '../contexts/CurrentUserContext'
 
 function Card (props) {
   const user = useContext(CurrentUserContext)
@@ -25,15 +25,15 @@ function Card (props) {
     return(
       
         <article className="card">
-          <img className="card__picture" src={props.link} alt={props.name} onClick={handleClick}/>
+          <img className="card__picture" src={props.link} alt={props.name} onClick={() => handleClick()}/>
           <div className="card__info">
             <h2 className="card__signature">{props.name}</h2>
             <div className="card__like-section">
-              <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick}></button>
+              <button className={cardLikeButtonClassName} type="button" onClick={() => handleLikeClick()}></button>
               <p className="card__like-counter">{props.likes.length}</p>
             </div>
           </div>
-          <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick}>
+          <button className={cardDeleteButtonClassName} type="button" onClick={() => handleDeleteClick()}>
           </button>
         </article>
     )

@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from 'react'
 import api from '../utils/api'
 import Card from './Card'
-import CurrentUserContext from './CurrentUserContext';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Main (props) {
 
@@ -24,7 +24,7 @@ function Main (props) {
                                         key={card.id} 
                                         {...card} 
                                         onCardClick={props.onCardClick} 
-                                        onCardLike={props.handleCardLike}
+                                        onCardLike={props.hanldeCardLike}
                                         onCardDelete={props.handleCardDelete}/>))}
             </section>
 

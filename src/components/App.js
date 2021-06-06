@@ -12,7 +12,7 @@ import EditAvatarPopup from './EditAvatarPopup'
 import AddPlacePopup from './AddPlacePopup'
 
 import api from '../utils/api'
-import CurrentUserContext from './CurrentUserContext'
+import CurrentUserContext from '../contexts/CurrentUserContext'
 
 function App() {
 
